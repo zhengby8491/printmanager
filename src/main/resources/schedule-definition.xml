@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC  "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<!-- 定时器配置 -->
+<beans>
+
+	<!--Test job 定时循环 -->
+
+	<bean id="testJob" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail">
+			<bean class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+				<property name="targetObject">
+					<bean class="com.huayin.printmanager.job.TestJob">
+						<property name="taskName" value="定时循环 测试" />
+						<property name="taskDescription" value="定时循环测试" />
+					</bean>
+				</property>
+				<property name="targetMethod" value="start" />
+			</bean>
+		</property>
+		<property name="startDelay" value="10000" />
+		<property name="repeatInterval" value="30000" />
+	</bean>
+
+	<!--Test job 正则定时 -->
+
+	<bean id="testJob2" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<bean class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+				<property name="targetObject">
+					<bean class="com.huayin.printmanager.job.TestJob2">
+						<property name="taskName" value="正则定时测试" />
+						<property name="taskDescription" value="正则定时测试" />
+					</bean>
+				</property>
+				<property name="targetMethod" value="start" />
+			</bean>
+		</property>
+		<property name="cronExpression">
+			<value>0/30 0-59 14 * * ?</value>
+		</property>
+	</bean>
+	<!-- 短信发送任务 -->
+	<bean id="sendSmsJob" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail">
+			<bean class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+				<property name="targetObject">
+					<bean class="com.huayin.printmanager.job.sms.SmsSendJob">
+						<property name="taskName" value="发送短信"></property>
+						<property name="taskDescription" value="发送短信"></property>
+						<property name="timeout" value="60000"></property>
+					</bean>
+				</property>
+				<property name="targetMethod" value="start" />
+			</bean>
+		</property>
+		<property name="startDelay" value="10000" />
+		<property name="repeatInterval" value="20000" />
+	</bean>
+
+	<!--9:30开始公司到期提醒 ，每天一次 -->
+
+	<bean id="companyExpireJob" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<bean class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+				<property name="targetObject">
+					<bean class="com.huayin.printmanager.job.monitor.CompanyExpireJob">
+						<property name="taskName" value="公司到期提醒" />
+						<property name="taskDescription" value="公司到期提醒" />
+					</bean>
+				</property>
+				<property name="targetMethod" value="start" />
+			</bean>
+		</property>
+		<property name="cronExpression">
+			<value>0 30 9 * * ?</value>
+		</property>
+	</bean>
+
+	<!-- 通知印刷家采购订单入库状态 -->
+	<bean id="noticePOStatus" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<bean class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+				<property name="targetObject">
+					<bean class="com.huayin.printmanager.job.monitor.NoticePOStatusJob">
+						<property name="taskName" value="通知印刷家采购订单入库状态" />
+						<property name="taskDescription" value="通知印刷家采购订单入库状态" />
+					</bean>
+				</property>
+				<property name="targetMethod" value="start" />
+			</bean>
+		</property>
+		<property name="cronExpression">
+			<value>0 0/30 * * * ?</value>
+		</property>
+	</bean>
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false">
+		<property name="schedulerName">
+			<value>printmanagerTask</value>
+		</property>
+		<property name="triggers">
+			<list>
+				<!-- <ref local="sendSmsJob" /> -->
+				<ref local="companyExpireJob" />
+				<!-- <ref local="testJob" /> -->
+				<!-- <ref local="testJob2" /> -->
+				<ref local="noticePOStatus" />
+			</list>
+		</property>
+	</bean>
+</beans>

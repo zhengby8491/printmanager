@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:util="http://www.springframework.org/schema/util" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/util 
+	http://www.springframework.org/schema/util/spring-util.xsd
+	http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/mvc 
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd ">
+
+	<!--通知spring使用cglib而不是jdk的来生成代理方法 AOP可以拦截到Controller -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<context:annotation-config />
+	<!-- 加载配置属性文件 -->
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:printmanager.properties" />
+
+	<!-- 使用Annotation自动注册Bean,只扫描@Controller -->
+	<context:component-scan base-package="com.huayin.printmanager" use-default-filters="false"><!-- base-package 如果多个，用“,”分隔 -->
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<!--避免IE执行AJAX时，返回JSON出现下载文件 -->
+	<bean id="mappingJackson2HttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+				<value>text/json;charset=UTF-8</value>
+				<value>application/json;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 采用SpringMVC自带的JSON转换工具，支持@ResponseBody注解 -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="mappingJackson2HttpMessageConverter" />    <!-- JSON转换器 -->
+			</list>
+		</property>
+	</bean>
+	<mvc:annotation-driven>
+		<!-- 处理responseBody 里面日期类型 -->
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="objectMapper">
+					<bean class="com.fasterxml.jackson.databind.ObjectMapper">
+						<property name="dateFormat">
+							<bean class="java.text.SimpleDateFormat">
+								<constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
+							</bean>
+						</property>
+					</bean>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	<!-- <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"> <property name="defaultErrorView"> <value>error</value> </property> <property name="exceptionMappings"> <props> 这里你可以根据需要定义N多个错误异常转发 <prop key="java.lang.Exception">redirect:/error</prop> <prop key="java.lang.RuntimeException">redirect:/error</prop> </props> </property> </bean> -->
+
+	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<!-- 对静态资源文件的访问， 将无法mapping到Controller的path交给default servlet handler处理 -->
+	<mvc:default-servlet-handler />
+
+	<!-- 静态资源映射 -->
+	<mvc:resources mapping="/static/**" location="/static/" cache-period="31536000" />
+
+	<!-- 定义无Controller的path<->view直接映射 -->
+	<mvc:view-controller path="/" view-name="redirect:${basePath}" />
+
+	<!-- 拦截器配置，拦截顺序：先执行后定义的，排在第一位的最后执行。 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="${basePath}/wx/**" />
+			<mvc:exclude-mapping path="${basePath}/wx/menu/**" />
+			<bean class="com.huayin.printmanager.wx.interceptor.WxLoginInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="${basePath}/wx/menu/**" />
+			<bean class="com.huayin.printmanager.wx.interceptor.WxLoginExperienceInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="${basePath}/**" />
+			<mvc:exclude-mapping path="/index" />
+			<mvc:exclude-mapping path="${basePath}/logout" />
+			<mvc:exclude-mapping path="${basePath}/login" />
+			<mvc:exclude-mapping path="${basePath}/pay/**" />
+			<mvc:exclude-mapping path="${basePath}/exterior/login" />
+			<bean class="com.huayin.printmanager.interceptor.LogInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="${basePath}/**" />
+			<mvc:exclude-mapping path="${basePath}/register**/**" />
+			<mvc:exclude-mapping path="${basePath}/password**/**" />
+			<!-- 广告资源 -->
+			<mvc:exclude-mapping path="${basePath}/sys/advertisement/ajaxPublisList" />
+			<!-- 广告统计 -->
+			<mvc:exclude-mapping path="${basePath}/sys/advertisement/ajaxStatistics" />
+			<mvc:exclude-mapping path="/index**/**" />
+			<mvc:exclude-mapping path="${basePath}/logout" />
+			<mvc:exclude-mapping path="${basePath}/login" />
+			<mvc:exclude-mapping path="${basePath}/pay/**" />
+			<mvc:exclude-mapping path="${basePath}/public/**" />
+			<mvc:exclude-mapping path="${basePath}/wx/**/**" />
+			<mvc:exclude-mapping path="${basePath}/wx/menu/**/**" />
+			<mvc:exclude-mapping path="${basePath}/exterior/handler" />
+			<mvc:exclude-mapping path="${basePath}/exterior/login" />
+			<bean class="com.huayin.printmanager.interceptor.LoginInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="${basePath}/**" />
+			<mvc:exclude-mapping path="/index" />
+			<mvc:exclude-mapping path="${basePath}/logout" />
+			<mvc:exclude-mapping path="${basePath}/login" />
+			<mvc:exclude-mapping path="${basePath}/pay/**" />
+			<mvc:exclude-mapping path="${basePath}/exterior/login" />
+			<bean class="com.huayin.printmanager.interceptor.AdminInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="${basePath}/**" />
+			<mvc:exclude-mapping path="/index" />
+			<mvc:exclude-mapping path="${basePath}/logout" />
+			<mvc:exclude-mapping path="${basePath}/login" />
+			<mvc:exclude-mapping path="${basePath}/pay/**" />
+			<mvc:exclude-mapping path="${basePath}/exterior/login" />
+			<bean class="com.huayin.printmanager.interceptor.PermissionInterceptor" />
+		</mvc:interceptor>
+		<!-- 短信防止恶意攻击，每分钟只能发送一次IP -->
+		<mvc:interceptor>
+			<mvc:mapping path="${basePath}/public/sendValidCode" />
+			<bean class="com.huayin.printmanager.interceptor.CodeInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="${basePath}/exterior/**"/>
+			<mvc:exclude-mapping path="${basePath}/exterior/login" />
+			<bean class="com.huayin.printmanager.interceptor.ExteriorInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+
+	<!-- 配置文件上传，如果没有使用文件上传可以不用配置，当然如果不配，那么配置文件中也不必引入上传组件包 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 默认编码 -->
+		<property name="defaultEncoding" value="utf-8" />
+		<!-- 文件大小最大值 -->
+		<property name="maxUploadSize" value="10485760000" />
+		<!-- 内存中的最大值 -->
+		<property name="maxInMemorySize" value="40960" />
+	</bean>
+	
+</beans>

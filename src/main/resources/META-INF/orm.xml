@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="1.0" xmlns="http://java.sun.com/xml/ns/persistence/orm" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd ">
+
+
+	<!-- <named-query name="test"> <query>select 1 from dual</query> </named-query> -->
+	<named-query name="company.findById">
+		<query>from Company o where o.id = ?1 </query>
+	</named-query>
+
+	<named-query name="company.count">
+		<query>select count(*) from Company where name = ? </query>
+	</named-query>
+
+	<named-query name="menu.clearRoleMenu">
+		<query>delete from Role_Menu rm where rm.roleId=?1</query>
+	</named-query>
+	<named-query name="menu.clearCompanyMenu">
+		<query>delete from Company_Menu cm where cm.companyId=?1</query>
+	</named-query>
+
+	<!-- <named-query name="purch.deletePurchOrderDetail"> -->
+	<!-- <query>delete from PurchOrderDetail p where p.masterId=?</query> -->
+	<!-- </named-query> -->
+
+	<!-- <named-query name="purch.deletePurchStockDetail"> -->
+	<!-- <query>delete from PurchStockDetail p where p.masterId=?</query> -->
+	<!-- </named-query> -->
+
+	<!-- <named-query name="purch.deletePurchRefundDetail"> -->
+	<!-- <query>delete from PurchRefundDetail p where p.masterId=?</query> -->
+	<!-- </named-query> -->
+
+	<!-- <named-query name="purch.deletePurchReconcilDetail"> -->
+	<!-- <query>delete from PurchReconcilDetail p where p.masterId=?</query> -->
+	<!-- </named-query> -->
+
+	<!-- <named-query name="stock.deleteStockMaterialOtherInDetail"> -->
+	<!-- <query>delete from StockMaterialOtherInDetail s where s.masterId=?</query> -->
+	<!-- </named-query> -->
+	<!-- <named-query name="stock.deleteStockMaterialOtherOutDetail"> -->
+	<!-- <query>delete from StockMaterialOtherOutDetail s where s.masterId=?</query> -->
+	<!-- </named-query> -->
+	<!-- <named-query name="stock.deleteStockMaterialAdjustDetail"> -->
+	<!-- <query>delete from StockMaterialAdjustDetail s where s.masterId=?</query> -->
+	<!-- </named-query> -->
+	<!-- <named-query name="stock.deleteStockMaterialInventoryDetail"> -->
+	<!-- <query>delete from StockMaterialInventoryDetail s where s.masterId=?</query> -->
+	<!-- </named-query> -->
+	<!-- <named-query name="stock.deleteStockMaterialTransferDetail"> -->
+	<!-- <query>delete from StockMaterialTransferDetail s where s.masterId=?</query> -->
+	<!-- </named-query> -->
+
+	<!-- <named-query name="stock.deleteStockProductOtherInDetail"> -->
+	<!-- <query>delete from StockProductOtherInDetail s where s.masterId=?</query> -->
+	<!-- </named-query> -->
+	<!-- <named-query name="stock.deleteStockProductOtherOutDetail"> -->
+	<!-- <query>delete from StockProductOtherOutDetail s where s.masterId=?</query> -->
+	<!-- </named-query> -->
+	<!-- <named-query name="stock.deleteStockProductAdjustDetail"> -->
+	<!-- <query>delete from StockProductAdjustDetail s where s.masterId=?</query> -->
+	<!-- </named-query> -->
+	<!-- <named-query name="stock.deleteStockProductInventoryDetail"> -->
+	<!-- <query>delete from StockProductInventoryDetail s where s.masterId=?</query> -->
+	<!-- </named-query> -->
+	<!-- <named-query name="stock.deleteStockProductTransferDetail"> -->
+	<!-- <query>delete from StockProductTransferDetail s where s.masterId=?</query> -->
+	<!-- </named-query> -->
+
+	<named-query name="work.procedure.canceloutsource">
+		<query>update WorkProcedure o set o.isOutSource=?1 where o.companyId=?2 and o.id in(?3)</query>
+	</named-query>
+	<named-query name="work.product.canceloutsource">
+		<query>update WorkProduct o set o.isOutSource=?1 where o.companyId=?2 and o.id in(?3)</query>
+	</named-query>
+	<named-query name="work.turningcount.add">
+		<query>update Work o set o.turningCount=(o.turningCount+1) where o.id in(?1)</query>
+	</named-query>
+	<named-query name="work.supplementcount.add">
+		<query>update Work o set o.supplementCount=(o.supplementCount+1) where o.id in(?1)</query>
+	</named-query>
+
+	<!-- 删除角色菜单 -->
+	<named-query name="del.role_menu">
+		<query>delete from Role_Menu where companyId=?1 and roleId=?2 and menuId in(?3)</query>
+	</named-query>
+	<!-- 清理基础遗漏数据 -->
+	<named-query name="clear.customerAddress">
+		<query>delete from CustomerAddress where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.customerPayer">
+		<query>delete from CustomerPayer where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.supplierAddress">
+		<query>delete from SupplierAddress where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.supplierPayer">
+		<query>delete from SupplierPayer where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.product_customer">
+		<query>delete from Product_Customer where companyId=?1</query>
+	</named-query>
+	<!-- 清理单据遗漏数据 -->
+	<named-query name="clear.produce.work">
+		<query>delete from Work where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.produce.workProduct">
+		<query>delete from WorkProduct where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.produce.workPart">
+		<query>delete from WorkPart where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.produce.workPack">
+		<query>delete from WorkPack where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.produce.workMaterial">
+		<query>delete from WorkMaterial where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.produce.workProcedure">
+		<query>delete from WorkProcedure where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.produce.workPart2Product">
+		<query>delete from WorkPart2Product where companyId=?1</query>
+	</named-query>
+
+
+	<named-query name="clear.stockProduct">
+		<query>delete from StockProduct where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.stockProductLog">
+		<query>delete from StockProductLog where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.stockMaterial">
+		<query>delete from StockMaterial where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.stockMaterialLog">
+		<query>delete from StockMaterialLog where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.accountLog">
+		<query>delete from AccountLog where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.paymentAdvanceLog">
+		<query>delete from FinancePaymentAdvanceLog where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.receiveAdvanceLog">
+		<query>delete from FinanceReceiveAdvanceLog where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.account.reset">
+		<query>update Account set money=0,isBegin='NO'  where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.supplier.reset">
+		<query>update Supplier set advanceMoney=0,isBegin='NO' where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.customer.reset">
+		<query>update Customer set advanceMoney=0,isBegin='NO' where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.warehouse.reset">
+		<query>update Warehouse set isBegin='NO' where companyId=?1</query>
+	</named-query>
+
+	<named-query name="user.updateVersionNotify">
+		<query>update User SET versionNotify=0</query>
+	</named-query>
+
+	<named-query name="clear.produce.reportTask">
+		<query>delete from WorkReportTask where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.produce.report">
+		<query>delete from WorkReport where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.produce.reportDetail">
+		<query>delete from WorkReportDetail where companyId=?1</query>
+	</named-query>
+	<named-query name="work.procedure.updateId">
+		<query>update WorkProduct set id=?1 where id=?2</query>
+	</named-query>
+	
+	<named-query name="clear.offer.offerOrder">
+		<query>delete from OfferOrder where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.offer.offerPart">
+		<query>delete from OfferPart where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.offer.offerPartProcedure">
+		<query>delete from OfferPartProcedure where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.offer.offerOrderQuoteInner">
+		<query>delete from OfferOrderQuoteInner where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.offer.offerOrderQuoteOut">
+		<query>delete from OfferOrderQuoteOut where companyId=?1</query>
+	</named-query>
+	
+	<named-query name="clear.offer.offerBflute">
+		<query>delete from OfferBflute where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.offer.offerMachine">
+		<query>delete from OfferMachine where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.offer.offerFormula">
+		<query>delete from OfferFormula where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.offer.offerStartPrint">
+		<query>delete from OfferStartPrint where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.offer.offerPaper">
+		<query>delete from OfferPaper where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.offer.offerPreprint">
+		<query>delete from OfferPrePrint where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.offer.offerProcedure">
+		<query>delete from OfferProcedure where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.offer.offerProfit">
+		<query>delete from OfferProfit where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.offer.offerWaste">
+		<query>delete from OfferWaste where companyId=?1</query>
+	</named-query>
+	
+	<named-query name="clear.sale.saleOrderMaterial">
+		<query>delete from SaleOrderMaterial where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.sale.saleOrderPack">
+		<query>delete from SaleOrderPack where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.sale.saleOrderPart">
+		<query>delete from SaleOrderPart where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.sale.saleOrderPart2Product">
+		<query>delete from SaleOrderPart2Product where companyId=?1</query>
+	</named-query>
+	<named-query name="clear.sale.saleOrderProcedure">
+		<query>delete from SaleOrderProcedure where companyId=?1</query>
+	</named-query>
+</entity-mappings>

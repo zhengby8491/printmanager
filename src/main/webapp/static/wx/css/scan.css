@@ -1,0 +1,68 @@
+#msCode .content{
+	margin:0.5rem;
+	
+}
+#msCode .list-block{
+border: 0.05rem solid #CDCDCD;
+}
+#msCode .em_userselect{
+display:inline-block;
+
+
+}
+#msCode .item_time{
+border: 0.05rem solid #6fb2dc;
+
+
+ position:relative;
+}
+#msCode .staffIfo{
+border: 0.05rem solid #6fb2dc;
+ position:relative;
+
+}
+#msCode .staffIfo span{
+    position: absolute;
+    right: 0.2rem;
+}
+
+#msCode .item_time input{
+    display: inline-block;
+    
+}
+#msCode .item_time span{
+position:absolute;
+right:0.2rem;
+
+}
+#msCode .item-inner{
+padding:0;
+}
+#msCode .custom_item_title{
+width:37%;
+border-right:0.05rem solid #CDCDCD;
+padding:0.2rem 0;
+margin:0;
+text-align:center;
+}
+#msCode .item-input{
+margin-left:0.2rem ;
+
+}
+#msCode input{
+text-overflow:ellipsis;
+    white-space: nowrap;
+    overflow:hidden;
+}
+#msCode .custom_input{
+border-bottom: 0.05rem solid #6fb2dc;
+}
+#msCode  .item-title,#msCode input,#msCode .em_userselect {
+font-size:0.7rem;
+}
+@media screen and (max-height:667px) {
+    
+}
+html,body{
+min-height:100%;
+}

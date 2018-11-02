@@ -1,0 +1,32 @@
+.wrapper{
+	background: -moz-linear-gradient(top, #3A789C, #B99D80);
+	background: -o-linear-gradient(top, #3A789C, #B99D80);
+	background: -ms-linear-gradient(top, #3A789C, #B99D80);
+	background: -webkit-linear-gradient(top, #3A789Ce, #B99D80);
+	background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#3A789C), to(#B99D80));
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#3A789C, endColorstr=#B99D80)";
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#3A789C, endColorstr=#B99D80) }
+.about{
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#3A789C), to(#B99D80));
+	background: -moz-linear-gradient(top, #3A789C, #B99D80);
+	background: -o-linear-gradient(top, #3A789C, #B99D80);
+	background: -ms-linear-gradient(top, #3A789C, #B99D80);
+	background: -webkit-linear-gradient(top, #3A789C, #B99D80);
+	background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#3A789C), to(#B99D80));
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#3A789C, endColorstr=#B99D80)";
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#3A789C, endColorstr=#B99D80) }
+.skinmenu .skin_list{background:#3A789C}
+.hy_workdesk .d_bg{background:#75ACCC}
+.border-table thead th{background:#BAD2E0}
+.acrossTab li.active {background: #91D3F5;}
+.layui-layer .layui-layer-title {background-color: #5696bb;}
+
+/* 新手指南 */
+ul.guide_l>li>div.menu_item{background-color: #61A0C0!important}
+ul.guide_l>li.selected>div.menu_item{background-color: #f0f0f0 !important}
+ul.guide_l>li.selected>div.menu_item>label{color:#EC9652;}
+ul.guide_l>li>div.menu_item>label{color: #fff;}
+.sub_menu{background: #f0f0f0;}
+.sub_menu>ul>li:hover,.sub_menu>ul>li.selected{background:#80B1CA;}
+.sub_menu>ul>li:hover>a,.sub_menu>ul>li.selected>a{color:#fff}
+.sub_menu>ul>li>a{font-family: "微软雅黑";font-size:15px;color:#EC9652}

@@ -1,0 +1,908 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.huayin.printmanager</groupId>
+	<artifactId>printmanager</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.2-SNAPSHOT</version>
+	<name>printmanager Maven Webapp</name>
+	<parent>
+		<groupId>com.huayin.web</groupId>
+		<artifactId>parent</artifactId>
+		<version>2.0.0</version>
+	</parent>
+	<properties>
+		<!-- common properties -->
+		<commonutil.version>2.0.0-SNAPSHOT</commonutil.version>
+		<springframework.version>4.2.4</springframework.version>
+		<hibernate.version>5.1.0</hibernate.version>
+		<!-- <springsecurity.version>4.0.3</springsecurity.version> -->
+		<!-- <shiro.version>1.2.3</shiro.version> -->
+		<ehcache.version>2.6.9</ehcache.version>
+		<ehcache-web.version>2.0.4</ehcache-web.version>
+		<jedis.version>2.5.1</jedis.version>
+		<druid.version>1.0.18</druid.version>
+		<!-- jdbc driver setting -->
+		<mysql.driver.version>5.1.30</mysql.driver.version>
+
+		<!-- tools -->
+		<commons-lang3.version>3.3.2</commons-lang3.version>
+		<slf4j.version>1.7.7</slf4j.version>
+		<jdk.version>1.7</jdk.version>
+		<codehaus.jackson.version>1.9.13</codehaus.jackson.version>
+		<fasterxml.jackson.version>2.7.3</fasterxml.jackson.version>
+		<commons-fileupload.version>1.3.1</commons-fileupload.version>
+		<thoughtworks.xstream>1.4.9</thoughtworks.xstream>
+
+		<!-- environment setting -->
+		<webserver.port>8181</webserver.port>
+		<maven_war_plugin_version>2.3</maven_war_plugin_version>
+	</properties>
+	<!-- 设定除中央仓库(repo1.maven.org/maven2/)外的其他仓库,按设定顺序进行查找. -->
+	<repositories>
+		<repository>
+			<id>aliyun-pubilc</id>
+			<name>Aliyun Public Repositories</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>pubilc</id>
+			<name>Public Repositories</name>
+			<url>http://192.168.1.168:18081/nexus/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<dependencies>
+		<dependency>
+			<groupId>com.huayin.common</groupId>
+			<artifactId>common-util</artifactId>
+			<version>${commonutil.version}</version>
+		</dependency>
+		<!-- spring data jpa -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-commons</artifactId>
+			<version>1.12.1.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>1.10.1.RELEASE</version>
+		</dependency>
+		<!-- spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${springframework.version}.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${springframework.version}.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${springframework.version}.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${springframework.version}.RELEASE</version>
+			<exclusions>
+				<!-- Exclude Commons Logging in favor of SLF4j -->
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${springframework.version}.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${springframework.version}.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${springframework.version}.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${springframework.version}.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${springframework.version}.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${springframework.version}.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+			<version>${springframework.version}.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${springframework.version}.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>${springframework.version}.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${springframework.version}.RELEASE</version>
+		</dependency>
+		<!-- spring security -->
+		<!-- <dependency> <groupId>org.springframework.security</groupId> <artifactId>spring-security-core</artifactId> <version>${springsecurity.version}.RELEASE</version> </dependency> <dependency> <groupId>org.springframework.security</groupId> <artifactId>spring-security-web</artifactId> <version>${springsecurity.version}.RELEASE</version> </dependency> <dependency> <groupId>org.springframework.security</groupId> <artifactId>spring-security-config</artifactId> <version>${springsecurity.version}.RELEASE</version> </dependency> -->
+		<!--hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
+			<version>${hibernate.version}.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate.version}.Final</version>
+		</dependency>
+		<!-- connection pool -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>${druid.version}</version>
+		</dependency>
+		<!-- db connect mysql -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.driver.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- db connect hsqldb -->
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>2.3.3</version>
+		</dependency>
+		<!-- SECURITY begin -->
+		<!-- <dependency> <groupId>org.apache.shiro</groupId> <artifactId>shiro-core</artifactId> <version>${shiro.version}</version> </dependency> <dependency> <groupId>org.apache.shiro</groupId> <artifactId>shiro-spring</artifactId> <version>${shiro.version}</version> </dependency> <dependency> <groupId>org.apache.shiro</groupId> <artifactId>shiro-web</artifactId> <version>${shiro.version}</version> </dependency> <dependency> <groupId>org.apache.shiro</groupId> <artifactId>shiro-ehcache</artifactId> <version>${shiro.version}</version> </dependency> -->
+		<!-- SECURITY end -->
+		<!-- <dependency> <groupId>javax.el</groupId> <artifactId>javax.el-api</artifactId> <version>2.2.4</version> </dependency> <dependency> <groupId>org.glassfish.web</groupId> <artifactId>javax.el</artifactId> <version>2.2.4</version> </dependency> -->
+		<!-- xstream -->
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream-hibernate</artifactId>
+			<version>1.4.9</version>
+		</dependency>
+		<!-- httpclient -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.3.4</version>
+		</dependency>
+		<!-- javax.transaction -->
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<!-- xstream -->
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>${thoughtworks.xstream}</version>
+		</dependency>
+		<!-- codehaus json -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-lgpl</artifactId>
+			<version>${codehaus.jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>${codehaus.jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${codehaus.jackson.version}</version>
+		</dependency>
+
+		<!-- castor-xml -->
+		<dependency>
+			<groupId>org.codehaus.castor</groupId>
+			<artifactId>castor-xml</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+		<!-- fasterxml.jackson -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${fasterxml.jackson.version}</version>
+		</dependency>
+		<!-- commons-xxx -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>${commons-fileupload.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<version>3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbutils</groupId>
+			<artifactId>commons-dbutils</artifactId>
+			<version>1.5</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-pool</groupId>
+			<artifactId>commons-pool</artifactId>
+			<version>1.5.3</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.8.0</version>
+		</dependency>
+		<!-- gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<!-- log4j -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.mail</groupId>
+					<artifactId>mail</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.jms</groupId>
+					<artifactId>jms</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jdmk</groupId>
+					<artifactId>jmxtools</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jmx</groupId>
+					<artifactId>jmxri</artifactId>
+				</exclusion>
+			</exclusions>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- LOGGING begin -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<!-- common-logging 实际调用slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<!-- java.util.logging 实际调用slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<!-- LOGGING end -->
+		<dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>antlr</artifactId>
+			<version>3.5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jdom</groupId>
+			<artifactId>jdom2</artifactId>
+			<version>2.0.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.htmlparser</groupId>
+			<artifactId>filterbuilder</artifactId>
+			<version>2.1</version>
+		</dependency>
+
+		<!-- cache begin -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+			<version>${ehcache.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-web</artifactId>
+			<version>${ehcache-web.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>${jedis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session</artifactId>
+			<version>1.3.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session-data-redis</artifactId>
+			<version>1.3.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>1.7.6.RELEASE</version>
+		</dependency>
+		<!-- cache end -->
+		<!-- <dependency> <groupId>com.googlecode.ehcache-spring-annotations</groupId> <artifactId>ehcache-spring-annotations</artifactId> <version>1.0.1</version> </dependency> -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.2-b02</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<!-- <dependency> <groupId>org.apache.taglibs</groupId> <artifactId>taglibs-standard-impl</artifactId> <version>1.2.1</version> </dependency> -->
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.jexcelapi</groupId>
+			<artifactId>jxl</artifactId>
+			<version>2.6.12</version>
+		</dependency>
+		<dependency>
+			<groupId>org.devlib.schmidt</groupId>
+			<artifactId>imageinfo</artifactId>
+			<version>1.9</version>
+		</dependency>
+		<dependency>
+			<groupId>org.htmlparser</groupId>
+			<artifactId>htmlparser</artifactId>
+			<version>2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.htmlparser</groupId>
+			<artifactId>htmllexer</artifactId>
+			<version>2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjtools</artifactId>
+			<version>1.6.6</version>
+		</dependency>
+
+		<!-- jms -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+			<version>${springframework.version}.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.jms</groupId>
+			<artifactId>javax.jms-api</artifactId>
+			<version>2.0.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.10-FINAL</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.10-FINAL</version>
+		</dependency>
+		<!-- baidu ueditor -->
+		<dependency>
+			<groupId>com.baidu</groupId>
+			<artifactId>ueditor</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.baidu</groupId>
+			<artifactId>ueditor-json</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.jxls</groupId>
+			<artifactId>jxls-core</artifactId>
+			<version>1.0.6</version>
+		</dependency>
+
+		<!-- PDF -->
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.5.9</version>
+		</dependency>
+		<dependency>
+			<groupId>com.itextpdf.tool</groupId>
+			<artifactId>xmlworker</artifactId>
+			<version>5.5.9</version>
+		</dependency>
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itext-asian</artifactId>
+			<version>5.2.0</version>
+		</dependency>
+		<!-- 谷歌二维码 -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.bcloud.msg.http</groupId>
+			<artifactId>HttpSender</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<!-- jackson json -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.7.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.7.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.7.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.module</groupId>
+			<artifactId>jackson-module-jaxb-annotations</artifactId>
+			<version>2.7.5</version>
+		</dependency>
+
+		<!-- ali fast json -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.31</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<defaultGoal>clean deploy</defaultGoal>
+		<finalName>printmanager</finalName>
+		<plugins>
+			<!-- 不要复制原始js，因为通过YUI已经压缩了 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<warSourceExcludes> **/hyui/js/**/*.js,**/hyui/css/**/*.css, **/layout/**/*.js,**/layout/**/*.css, **/site/**/*.js,**/layout/**/*.css
+					</warSourceExcludes>
+				</configuration>
+			</plugin>
+			<!-- YUI Compressor Maven压缩插件 -->
+			<plugin>
+				<groupId>net.alchim31.maven</groupId>
+				<artifactId>yuicompressor-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>${maven_war_plugin_version}</version>
+				</plugin>
+				<plugin>
+					<!-- YUI Compressor Maven压缩插件 -->
+					<groupId>net.alchim31.maven</groupId>
+					<artifactId>yuicompressor-maven-plugin</artifactId>
+					<version>1.5.1</version>
+					<executions>
+						<execution>
+							<phase>process-resources</phase>
+							<goals>
+								<goal>compress</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<!-- 禁止优化（不然会去除.htm） -->
+						<disableOptimizations>true</disableOptimizations>
+						<!-- 读取js,css文件采用UTF-8编码 -->
+						<encoding>UTF-8</encoding>
+						<!-- 不显示js可能的错误 -->
+						<jswarn>false</jswarn>
+						<!-- 若存在已压缩的文件，会先对比源文件是否有改动。有改动便压缩，无改动就不压缩 -->
+						<force>false</force>
+						<!-- 在指定的列号后插入新行 -->
+						<linebreakpos>-1</linebreakpos>
+						<!-- 压缩之前先执行聚合文件操作 -->
+						<preProcessAggregates>true</preProcessAggregates>
+						<!-- 压缩后保存文件后缀 -->
+						<!-- <suffix>.min</suffix> -->
+						<!-- 压缩后保存文件后缀 无后缀 -->
+						<nosuffix>true</nosuffix>
+						<!-- 源目录，即需压缩的根目录 -->
+						<sourceDirectory>src/main/webapp/static</sourceDirectory>
+						<!-- 压缩js和css文件 -->
+						<includes>
+							<include>**/hyui/js/**/*.js</include>
+							<include>**/hyui/css/**/*.css</include>
+							<include>**/layout/**/*.js</include>
+							<include>**/layout/**/*.css</include>
+							<include>**/site/**/*.js</include>
+							<include>**/site/**/*.css</include>
+						</includes>
+						<!-- 压缩后输出文件目录 -->
+						<!-- ${basedir} 项目根目录 -->
+						<!-- ${project.build.directory} 构建目录，缺省为target -->
+						<!-- ${project.build.outputDirectory} 构建过程输出目录，缺省为target/classes -->
+						<!-- ${project.build.finalName} 产出物名称，缺省为${project.artifactId}-${project.version} -->
+						<!-- ${project.packaging} 打包类型，缺省为jar -->
+						<!-- ${project.xxx} 当前pom文件的任意节点的内容 -->
+						<outputDirectory>target/static</outputDirectory>
+						<!-- 聚合文件 -->
+						<aggregations>
+							<!-- HYUI Login CSS -->
+							<aggregation>
+								<!-- 合并每一个文件后插入一新行 -->
+								<insertNewLine>true</insertNewLine>
+								<!-- 需合并文件的根文件夹 -->
+								<inputDir>src/main/webapp/static/hyui</inputDir>
+								<!-- 最终合并的输出文件 -->
+								<output>src/main/webapp/static/hyui/css/hyui.login.css</output>
+								<!-- 把以下css文件合并成一个css文件，是按顺序合并的 -->
+								<includes>
+									<include>css/hyui.css</include>
+									<include>src/login.css</include>
+								</includes>
+							</aggregation>
+							<!-- HYUI Login JS -->
+							<aggregation>
+								<!-- 合并每一个文件后插入一新行 -->
+								<insertNewLine>true</insertNewLine>
+								<!-- 需合并文件的根文件夹 -->
+								<inputDir>src/main/webapp/static/hyui</inputDir>
+								<!-- 最终合并的输出文件 -->
+								<output>src/main/webapp/static/hyui/js/hyui.login.js</output>
+								<!-- 把以下js文件合并成一个js文件，是按顺序合并的 -->
+								<includes>
+									<include>plugins/jquery/1.9.1/jquery.min.js</include>
+									<include>plugins/jquery.form/jquery.form.js</include>
+									<include>plugins/jquery.cookie/jquery.cookie.js</include>
+									<include>plugins/jquery.validation/1.14.0/jquery.validate.min.js</include>
+									<include>plugins/jquery.SuperSlide/jquery.SuperSlide.min.js</include>
+									<include>src/public.js</include>
+									<include>src/login.js</include>
+								</includes>
+							</aggregation>
+							<!-- HYUI Main CSS -->
+							<aggregation>
+								<!-- 合并每一个文件后插入一新行 -->
+								<insertNewLine>true</insertNewLine>
+								<!-- 需合并文件的根文件夹 -->
+								<inputDir>src/main/webapp/static/hyui</inputDir>
+								<!-- 最终合并的输出文件 -->
+								<output>src/main/webapp/static/hyui/css/hyui.main.css</output>
+								<!-- 把以下css文件合并成一个css文件，是按顺序合并的 -->
+								<includes>
+									<include>plugins/jquery.powerFloat/css/powerFloat.css</include>
+									<include>plugins/rightMenu/smartMenu.css</include>
+									<include>css/hyui.css</include>
+									<include>src/animate.css</include>
+									<include>src/main.css</include>
+								</includes>
+							</aggregation>
+							<!-- HYUI Main JS -->
+							<aggregation>
+								<!-- 合并每一个文件后插入一新行 -->
+								<insertNewLine>true</insertNewLine>
+								<!-- 需合并文件的根文件夹 -->
+								<inputDir>src/main/webapp/static/hyui</inputDir>
+								<!-- 最终合并的输出文件 -->
+								<output>src/main/webapp/static/hyui/js/hyui.main.js</output>
+								<!-- 把以下js文件合并成一个js文件，是按顺序合并的 -->
+								<includes>
+									<include>plugins/jquery/1.9.1/jquery.min.js</include>
+									<include>plugins/jquery.cookie/jquery.cookie.js</include>
+									<include>plugins/jquery.marquee/jquery.marquee.min.js</include>
+									<include>plugins/jquery.powerFloat/js/mini/jquery-powerFloat-min.js</include>
+									<include>plugins/rightMenu/smartMenu.js</include>
+									<include>src/public.js</include>
+									<include>src/public.ext.js</include>
+									<include>src/main.js</include>
+								</includes>
+							</aggregation>
+							<!-- HYUI Welcome CSS -->
+							<aggregation>
+								<!-- 合并每一个文件后插入一新行 -->
+								<insertNewLine>true</insertNewLine>
+								<!-- 需合并文件的根文件夹 -->
+								<inputDir>src/main/webapp/static/hyui</inputDir>
+								<!-- 最终合并的输出文件 -->
+								<output>src/main/webapp/static/hyui/css/hyui.welcome.css</output>
+								<!-- 把以下css文件合并成一个css文件，是按顺序合并的 -->
+								<includes>
+									<include>css/hyui.css</include>
+									<include>src/welcome.css</include>
+									<include>plugins/bootstrap-table/bootstrap.min.css</include>
+									<include>plugins/zabuto-calendar/style.css</include>
+									<include>plugins/zabuto-calendar/zabuto_calendar.min.css</include>
+									<include>src/common.css</include>
+								</includes>
+							</aggregation>
+							<!-- HYUI Welcome JS -->
+							<aggregation>
+								<!-- 合并每一个文件后插入一新行 -->
+								<insertNewLine>true</insertNewLine>
+								<!-- 需合并文件的根文件夹 -->
+								<inputDir>src/main/webapp/static/hyui</inputDir>
+								<!-- 最终合并的输出文件 -->
+								<output>src/main/webapp/static/hyui/js/hyui.welcome.js</output>
+								<!-- 把以下js文件合并成一个js文件，是按顺序合并的 -->
+								<includes>
+									<include>plugins/jquery/1.9.1/jquery.min.js</include>
+									<include>plugins/jquery.cookie/jquery.cookie.js</include>
+									<include>plugins/zabuto-calendar/zabuto_calendar.min.js</include>
+									<include>src/public.js</include>
+									<include>src/public.ext.js</include>
+									<include>src/welcome.js</include>
+								</includes>
+							</aggregation>
+							<!-- HYUI Common CSS -->
+							<aggregation>
+								<!-- 合并每一个文件后插入一新行 -->
+								<insertNewLine>true</insertNewLine>
+								<!-- 需合并文件的根文件夹 -->
+								<inputDir>src/main/webapp/static/hyui</inputDir>
+								<!-- 最终合并的输出文件 -->
+								<output>src/main/webapp/static/hyui/css/hyui.common.css</output>
+								<!-- 把以下css文件合并成一个css文件，是按顺序合并的 -->
+								<includes>
+									<include>css/hyui.css</include>
+									<include>plugins/jquery.select2/css/select2.css</include>
+									<include>plugins/laypage/1.3/skin/laypage.css</include>
+									<include>plugins/layer/skin/default/layer.css</include>
+									<include>plugins/bootstrap-table/bootstrap.min.css</include>
+									<include>plugins/bootstrap-table/bootstrap-table.min.css</include>
+									<include>plugins/jquery.powerFloat/css/powerFloat.css</include>
+									<include>src/animate.css</include>
+									<include>src/common.css</include>
+								</includes>
+							</aggregation>
+							<!-- HYUI Common JS -->
+							<aggregation>
+								<!-- 合并每一个文件后插入一新行 -->
+								<insertNewLine>true</insertNewLine>
+								<!-- 需合并文件的根文件夹 -->
+								<inputDir>src/main/webapp/static/hyui</inputDir>
+								<!-- 最终合并的输出文件 -->
+								<output>src/main/webapp/static/hyui/js/hyui.common.js</output>
+								<!-- 把以下js文件合并成一个js文件，是按顺序合并的 -->
+								<includes>
+									<include>plugins/jquery/1.9.1/jquery.min.js</include>
+									<include>plugins/jquery.form/jquery.form.js</include>
+									<include>plugins/jquery.cookie/jquery.cookie.js</include>
+									<include>plugins/jquery.validation/1.14.0/jquery.validate.min.js</include>
+									<include>plugins/jquery.validation/1.14.0/validate-methods.js</include>
+									<include>plugins/jquery.validation/1.14.0/messages_zh_CN.min.js</include>
+									<include>plugins/jquery.select2/js/select2.js</include>
+									<include>plugins/jquery.select2/js/i18n/zh_CN.js</include>
+									<include>plugins/bootstrap-table/bootstrap.min.js</include>
+									<include>plugins/bootstrap-table/bootstrap-table.js</include>
+									<include>plugins/bootstrap-table/locale/bootstrap-table-zh_CN.min.js</include>
+									<include>plugins/bootstrap-table/extensions/cookie/bootstrap-table-cookie.js</include>
+									<include>plugins/bootstrap-table/extensions/export/bootstrap-table-export.js</include>
+									<include>plugins/bootstrap-table/extensions/export/tableExport.min.js</include>
+									<include>plugins/bootstrap-table/extensions/export/jspdf.min.js</include>
+									<include>plugins/bootstrap-table/extensions/export/jspdf.plugin.autotable.js</include>
+									<include>plugins/bootstrap-table/extensions/export/html2canvas.min.js</include>
+									<include>plugins/bootstrap-table/extensions/resizable/bootstrap-table-resizable.js</include>
+									<include>plugins/colResizable/colResizable-1.6.min.js</include>
+									<include>plugins/jquery.powerFloat/js/mini/jquery-powerFloat-min.js</include>
+									<include>plugins/jquery.marquee/jquery.marquee.min.js</include>
+									<include>plugins/ueditor/ueditor.config.js</include>
+									<include>plugins/ueditor/ueditor.all.js</include>
+									<include>plugins/ueditor/lang/zh_CN/zh_CN.js</include>
+									<include>plugins/print/formatMoney.js</include>
+									<include>plugins/rightMenu/smartMenu.js</include>
+								</includes>
+							</aggregation>
+							<!-- HYUI Common JS -->
+							<aggregation>
+								<!-- 合并每一个文件后插入一新行 -->
+								<insertNewLine>true</insertNewLine>
+								<!-- 需合并文件的根文件夹 -->
+								<inputDir>src/main/webapp/static/hyui</inputDir>
+								<!-- 最终合并的输出文件 -->
+								<output>src/main/webapp/static/hyui/js/hyui.common2.js</output>
+								<!-- 把以下js文件合并成一个js文件，是按顺序合并的 -->
+								<includes>
+									<include>src/public.js</include>
+									<include>src/public.ext.js</include>
+									<include>src/common.js</include>
+								</includes>
+							</aggregation>
+						</aggregations>
+					</configuration>
+				</plugin>
+				<!-- -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>1.10</version>
+					<executions>
+						<!-- 添加主源码目录 -->
+						<execution>
+							<id>add-source</id>   <!--自定义名称,不可重复 -->
+							<phase>initialize</phase>   <!--指定绑定到生命周期 -->
+							<goals>     <!--指定指定的目标,可添加多个 -->
+								<goal>add-source</goal>
+							</goals>
+							<configuration>
+								<sources>    <!--资源文件目录,可添加多个 -->
+									<source>${basedir}/src/main/java</source>
+								</sources>
+							</configuration>
+						</execution>
+
+						<!-- 添加主资源文件目录 -->
+						<execution>
+							<id>add-resource</id>
+							<phase>initialize</phase>
+							<goals>
+								<goal>add-resource</goal>
+							</goals>
+							<configuration>
+								<resources>
+									<resource>
+										<directory>${basedir}/src/main/resources</directory>
+										<!--是否启用变量过滤 -->
+										<filtering>true</filtering>
+										<!--排除的文件,可添加多个 -->
+										<!-- <excludes> <exclude></exclude> </excludes> -->
+									</resource>
+								</resources>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- To skip running the tests for a particular project, set the skipTests property to true. -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.19.1</version>
+					<configuration>
+						<skipTests>true</skipTests>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.1</version>
+					<configuration>
+						<source>${jdk.version}</source>
+						<target>${jdk.version}</target>
+						<encoding>${project.build.sourceEncoding}</encoding>
+						<showWarnings>true</showWarnings>
+					</configuration>
+				</plugin>
+				<!-- 自动发布到远程tomcat，有问题，未解决，报caught when processing request: Connection reset by peer: socket write error -->
+				<!-- <plugin> <groupId>org.apache.tomcat.maven</groupId> <artifactId>tomcat7-maven-plugin</artifactId> <version>2.2</version> <configuration> <url>http://192.168.1.167:8081/manager/html</url> <server>tomcat</server> <warFile>${project.build.directory}/printmanager.war</warFile> </configuration> </plugin> -->
+
+
+				<!-- jetty插件 -->
+				<!-- <plugin> <groupId>org.mortbay.jetty</groupId> <artifactId>jetty-maven-plugin</artifactId> <configuration> <connectors> <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector"> <port>${webserver.port}</port> </connector> </connectors> <webAppConfig> <contextPath>/${project.artifactId}</contextPath> </webAppConfig> <systemProperties> <systemProperty> <name>org.mortbay.util.URI.charset</name> <value>${project.build.sourceEncoding}</value> </systemProperty> </systemProperties> </configuration> </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-install-plugin</artifactId> <configuration> <skip>true</skip> </configuration> </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> 
+					<artifactId>maven-deploy-plugin</artifactId> <configuration> <skip>true</skip> </configuration> </plugin> -->
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

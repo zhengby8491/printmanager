@@ -1,0 +1,69 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="${ctxHYUI}/plugins/html5.js"></script>
+<script type="text/javascript" src="${ctxHYUI}/plugins/respond.min.js"></script>
+<script type="text/javascript" src="${ctxHYUI}/plugins/PIE_IE678.js"></script>
+<![endif]-->
+<c:if test="${mode == 'dev' }">
+	<script type="text/javascript" src="${ctxHYUI}/plugins/jquery/1.9.1/jquery.min.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/jquery.form/jquery.form.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/jquery.cookie/jquery.cookie.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/jquery.validation/1.14.0/jquery.validate.min.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/jquery.validation/1.14.0/validate-methods.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/jquery.validation/1.14.0/messages_zh_CN.min.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/jquery.select2/js/select2.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/jquery.select2/js/i18n/zh_CN.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/laypage/1.3/laypage.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/bootstrap-table/bootstrap.min.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/bootstrap-table/bootstrap-table.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/bootstrap-table/locale/bootstrap-table-zh_CN.min.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/bootstrap-table/extensions/cookie/bootstrap-table-cookie.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/bootstrap-table/extensions/export/bootstrap-table-export.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/bootstrap-table/extensions/export/tableExport.min.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/bootstrap-table/extensions/export/jspdf.min.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/bootstrap-table/extensions/export/jspdf.plugin.autotable.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/bootstrap-table/extensions/export/html2canvas.min.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/bootstrap-table/extensions/resizable/bootstrap-table-resizable.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/colResizable/colResizable-1.6.min.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/jquery.powerFloat/js/mini/jquery-powerFloat-min.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/jquery.marquee/jquery.marquee.min.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/ueditor/ueditor.config.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/ueditor/ueditor.all.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/ueditor/lang/zh_CN/zh_CN.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/print/formatMoney.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/plugins/rightMenu/smartMenu.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/src/public.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/src/public.ext.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/src/common.js?v=${v }"></script>
+</c:if>
+<c:if test="${mode == 'pro' }">
+	<script type="text/javascript" src="${ctxHYUI}/js/hyui.common.js?v=${v }"></script>
+	<script type="text/javascript" src="${ctxHYUI}/js/hyui.common2.js?v=${v }"></script>
+</c:if>
+<script type="text/javascript" src="${ctxHYUI}/plugins/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${ctxHYUI}/plugins/layer/layer.js"></script>
+<script type="text/javascript">
+	//$.noConflict(true);  // <- this：Uncaught TypeError: Cannot read property 'addMethod' of undefined
+	Helper.locale = "${locale}";
+	Helper.basePath = "${ctx}";
+	Helper.staticPath = "${ctxStatic}";
+	Helper.v = "${v}";
+	Helper.ctxHYUI = "${ctxHYUI}";
+	Helper.bootPageList = [ 10, 20, 50, 500, 1000 ];
+	/* 初始化首页皮肤 */
+	function initTopSkin()
+	{
+		var cssType = $.cookie('ygj_skin');
+		if (cssType == "" || cssType == null || cssType == "default")
+		{
+			$("#topskin").attr("href", Helper.ctxHYUI + '/themes/default/style.css?v=' + Helper.v);
+		} else if (cssType == "brown")
+		{
+			$("#topskin").attr("href", Helper.ctxHYUI + '/themes/brown/style.css?v=' + Helper.v);
+		} else if (cssType == "blue")
+		{
+			$("#topskin").attr("href", Helper.ctxHYUI + '/themes/blue/style.css?v=' + Helper.v);
+		}
+	}
+	initTopSkin();
+</script>

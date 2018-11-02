@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd ">
+
+	<import resource="classpath:ds-definition.xml" />
+	<import resource="classpath:common-persist-definition.xml" />
+	<import resource="classpath:common-config-definition.xml" />
+	<import resource="classpath:bean-definition.xml" />
+	<import resource="classpath:schedule-definition.xml" />
+	<import resource="classpath:spring-session.xml" />
+	<!-- <import resource="classpath:spring-jedis.xml" /> <import resource="classpath:spring-shiro-redis.xml" /> <import resource="classpath:spring-shiro.xml" /> -->
+</beans>

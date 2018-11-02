@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:util="http://www.springframework.org/schema/util" xmlns:security="http://www.springframework.org/schema/security" xmlns:ehcache="http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:task="http://www.springframework.org/schema/task" xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/task 
+	http://www.springframework.org/schema/task/spring-task.xsd
+	http://www.springframework.org/schema/cache  
+    http://www.springframework.org/schema/cache/spring-cache.xsd 
+	http://www.springframework.org/schema/security 
+	http://www.springframework.org/schema/security/spring-security.xsd 
+	http://www.springframework.org/schema/data/jpa
+	http://www.springframework.org/schema/data/jpa/spring-jpa.xsd ">
+	<!-- 加载配置属性文件 -->
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:printmanager.properties" />
+
+	<context:component-scan base-package="com.huayin" />
+	<task:annotation-driven />
+	<context:annotation-config />
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+	<jpa:repositories base-package="com.huayin" repository-impl-postfix="Impl" entity-manager-factory-ref="MasterEntityManagerFactory" transaction-manager-ref="MasterTransactionManager">
+	</jpa:repositories>
+	<bean id="SlaveEntityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="slaveDataSource" />
+		<property name="packagesToScan" value="com.huayin" />
+
+		<property name="mappingResources">
+			<list>
+				<value>META-INF/orm.xml</value>
+			</list>
+		</property>
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="true" />
+				<property name="generateDdl" value="true" />
+			</bean>
+		</property>
+		<property name="jpaDialect">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+		</property>
+		<property name="jpaPropertyMap">
+			<props>
+				<!--设置外连接抓取树的最大深度 -->
+				<prop key="hibernate.max_fetch_depth">5</prop>
+				<prop key="hibernate.jdbc.fetch_size">100</prop>
+				<prop key="hibernate.jdbc.batch_size">50</prop>
+				<!-- 自动建表类型 validate|create|create-drop|update -->
+				<!-- <prop key="hibernate.hbm2ddl.auto">validate</prop> -->
+				<!-- 是否显示SQL -->
+				<prop key="hibernate.show_sql">false</prop>
+				<!-- 显示SQL是否格式化 -->
+				<prop key="hibernate.format_sql">false</prop>
+
+				<!-- 关闭实体字段映射校验 -->
+				<prop key="javax.persistence.validation.mode">none</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+				</prop>
+				<prop key="hibernate.cache.provider_class">net.sf.ehcache.hibernate.EhCacheProvider</prop>
+				<prop key="hibernate.cache.provider_configuration_file_resource_path">/ehcache/ehcache-custom.xml</prop>
+				<prop key="hibernate.cache.use_structured_entries">true</prop>
+				<!-- <prop key="hibernate.ejb.event.post-insert">com.huayin.common.persist.OperateLogListener</prop> <prop key="hibernate.ejb.event.post-update">com.huayin.common.persist.OperateLogListener</prop> <prop key="hibernate.ejb.event.post-delete">com.huayin.common.persist.OperateLogListener</prop> -->
+			</props>
+		</property>
+	</bean>
+
+	<bean name="slaveSharedEntityManagerBean" class="org.springframework.orm.jpa.support.SharedEntityManagerBean">
+		<property name="entityManagerFactory" ref="SlaveEntityManagerFactory" />
+	</bean>
+
+	<!-- EHCACHE CONFIG -->
+	<!-- 启用缓存注解功能(请将其配置在Spring主配置文件中) -->
+	<cache:annotation-driven cache-manager="ehCacheManager" />
+	<!-- cacheManager, 指定ehcache.xml的位置 -->
+	<bean id="ehCacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:ehcache/ehcache-custom.xml" />
+		<!-- 由于hibernate也使用了Ehcache, 保证双方都使用同一个缓存管理器 -->
+		<property name="shared" value="true" />
+	</bean>
+
+	<bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+		<property name="cacheManager" ref="ehCacheManagerFactory" />
+	</bean>
+
+	<!-- 配置 JSR303 Bean Validator 定义 -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+	
+	<!-- 配置国际化资源文件路径 -->
+	<bean id="messageSource" class="com.huayin.printmanager.i18n.ResourceBundleMessageSource">
+		<!-- 如果在国际化资源文件中找不到对应代码的信息，就用这个代码作为名称 -->
+		<property name="useCodeAsDefaultMessage" value="true" />
+		<!-- 默认编码格式为 utf-8 -->
+		<property name="defaultEncoding" value="UTF-8" />
+		<!-- 国际化信息所在的文件名 -->
+		<property name="basenames">
+			<list>
+				<value>i18n/message</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 基于Cookie的本地化解析器 -->
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<property name="cookieMaxAge" value="604800" />
+		<property name="defaultLocale" value="zh_CN" />
+		<property name="cookieName" value="print.language"></property>
+	</bean>
+</beans>

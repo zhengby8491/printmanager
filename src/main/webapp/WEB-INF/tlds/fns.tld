@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd" version="2.0">
+
+	<description>JSTL 1.1 functions library</description>
+	<display-name>JSTL functions sys</display-name>
+	<tlib-version>1.1</tlib-version>
+	<short-name>fns</short-name>
+	<uri>http://java.sun.com/jsp/jstl/functionss</uri>
+
+	<function>
+		<description>获取配置</description>
+		<name>getConfig</name>
+		<function-class>com.huayin.printmanager.common.SystemConfigUtil</function-class>
+		<function-signature>java.lang.String getConfig(java.lang.String)</function-signature>
+		<example>${fns:getConfig(key)}</example>
+	</function>
+
+
+	<!-- UserUtils -->
+	<function>
+		<description>获取当前用户对象</description>
+		<name>getUser</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>com.huayin.printmanager.persist.entity.User getUser()</function-signature>
+		<example>${fns:getUser()}</example>
+	</function>
+	<function>
+		<description>获取当前用户对象员工姓名没有则返回账号名</description>
+		<name>getUserEmployeeName</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>com.huayin.printmanager.persist.entity.User getUserEmployeeName()</function-signature>
+		<example>${fns:getUserEmployeeName()}</example>
+	</function>
+	<function>
+		<description>根据编码获取用户对象</description>
+		<name>getUserById</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>com.huayin.printmanager.persist.entity.User get(java.lang.String)</function-signature>
+		<example>${fns:get(id)}</example>
+	</function>
+
+	<function>
+		<description>根据栏目标识判断当前公司是否有此权限</description>
+		<name>hasCompanyPermission</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>java.lang.Boolean hasCompanyPermission(java.lang.String)</function-signature>
+		<example>${fns:hasCompanyPermission("sale:order:list")}</example>
+	</function>
+
+	<!-- <function> <description>获取授权用户信息</description> <name>getPrincipal</name> <function-class>com.huayin.printmanager.utils.UserUtils</function-class> <function-signature>com.huayin.printmanager.service.security.MyRealm.Principal getPrincipal()</function-signature> <example>${fns:getPrincipal()}</example> </function> -->
+
+	<function>
+		<description>获取当前用户的菜单对象列表</description>
+		<name>getNavigationMenu</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>java.util.List getNavigationMenu()</function-signature>
+		<example>${fns:getNavigationMenu()}</example>
+	</function>
+
+	<function>
+		<description>获取当前用户缓存</description>
+		<name>getCache</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>java.lang.Object getCache(java.lang.String, java.lang.Object)</function-signature>
+		<example>${fns:getCache(cacheName, defaultValue)}</example>
+	</function>
+	<!-- Encodes -->
+	<function>
+		<description>URL编码</description>
+		<name>urlEncode</name>
+		<function-class>com.huayin.printmanager.utils.Encodes</function-class>
+		<function-signature>java.lang.String urlEncode(java.lang.String)</function-signature>
+		<example>${fns:urlEncode(part)}</example>
+	</function>
+	<function>
+		<description>URL解码</description>
+		<name>urlDecode</name>
+		<function-class>com.huayin.printmanager.utils.Encodes</function-class>
+		<function-signature>java.lang.String urlDecode(java.lang.String)</function-signature>
+		<example>${fns:urlDecode(part)}</example>
+	</function>
+	<function>
+		<description>HTML编码</description>
+		<name>escapeHtml</name>
+		<function-class>com.huayin.printmanager.utils.Encodes</function-class>
+		<function-signature>java.lang.String escapeHtml(java.lang.String)</function-signature>
+		<example>${fns:escapeHtml(html)}</example>
+	</function>
+	<function>
+		<description>HTML解码</description>
+		<name>unescapeHtml</name>
+		<function-class>com.huayin.printmanager.utils.Encodes</function-class>
+		<function-signature>java.lang.String unescapeHtml(java.lang.String)</function-signature>
+		<example>${fns:unescapeHtml(html)}</example>
+	</function>
+
+	<!-- StringUtils -->
+	<function>
+		<description>从后边开始截取字符串</description>
+		<name>substringAfterLast</name>
+		<function-class>org.apache.commons.lang3.StringUtils</function-class>
+		<function-signature>java.lang.String substringAfterLast(java.lang.String, java.lang.String)</function-signature>
+		<example>${fns:substringAfterLast(str,separator)}</example>
+	</function>
+	<function>
+		<description>判断字符串是否以某某开头</description>
+		<name>startsWith</name>
+		<function-class>org.apache.commons.lang3.StringUtils</function-class>
+		<function-signature>boolean startsWith(java.lang.CharSequence, java.lang.CharSequence)</function-signature>
+		<example>${fns:startsWith(str,prefix)}</example>
+	</function>
+	<function>
+		<description>判断字符串是否以某某结尾</description>
+		<name>endsWith</name>
+		<function-class>org.apache.commons.lang3.StringUtils</function-class>
+		<function-signature>boolean endsWith(java.lang.CharSequence, java.lang.CharSequence)</function-signature>
+		<example>${fns:endsWith(str,suffix)}</example>
+	</function>
+	<function>
+		<description>缩写字符串，超过最大宽度用“...”表示</description>
+		<name>abbr</name>
+		<function-class>com.huayin.printmanager.utils.StringUtils</function-class>
+		<function-signature>java.lang.String abbr(java.lang.String, int)</function-signature>
+		<example>${fns:abbr(str,length)}</example>
+	</function>
+	<function>
+		<description>替换掉HTML标签</description>
+		<name>replaceHtml</name>
+		<function-class>com.huayin.printmanager.utils.StringUtils</function-class>
+		<function-signature>java.lang.String replaceHtml(java.lang.String)</function-signature>
+		<example>${fns:replaceHtml(html)}</example>
+	</function>
+	<function>
+		<description>转换为JS获取对象值，生成三目运算返回结果。</description>
+		<name>jsGetVal</name>
+		<function-class>com.huayin.printmanager.utils.StringUtils</function-class>
+		<function-signature>java.lang.String jsGetVal(java.lang.String)</function-signature>
+		<example>${fns:jsGetVal('row.user.id')}  返回：!row?'':!row.user?'':!row.user.id?'':row.user.id</example>
+	</function>
+
+	<!-- JsonUtils -->
+	<function>
+		<description>对象转换JSON字符串</description>
+		<name>toJson</name>
+		<function-class>com.huayin.common.util.JsonUtils</function-class>
+		<function-signature>java.lang.String toJson(java.lang.Object)</function-signature>
+		<example>${fns:toJson(object)}</example>
+	</function>
+	<!-- 个人公司基础信息提取 -->
+	<function>
+		<description>获取基础信息List(param1:CacheBasicType)</description>
+		<name>basicList</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>java.lang.List getBasicList(java.lang.String)</function-signature>
+		<example>${fns:basicList('department')}</example>
+	</function>
+	<function>
+		<description>获取基础信息List(param1:CacheBasicType)【不需要自定义选项】</description>
+		<name>basicList2</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>java.lang.List getBasicListCustom(java.lang.String)</function-signature>
+		<example>${fns:basicList2('department')}</example>
+	</function>
+	<function>
+		<description>获取基础信息List(param1:CacheBasicType,param2:属性名,params:过滤属性值)</description>
+		<name>basicListParam</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>java.lang.List getBasicListParam(java.lang.String,java.lang.String,java.lang.String)</function-signature>
+		<example>${fns:basicListParam('department','name','a')}</example>
+	</function>
+	<function>
+		<description>获取基础信息List(param1:CacheBasicType,param2:属性名,params:过滤属性值)【不需要自定义选项】</description>
+		<name>basicListParam2</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>java.lang.List getBasicListParamCustom(java.lang.String,java.lang.String,java.lang.String)</function-signature>
+		<example>${fns:basicListParam2('department','name1','a')}</example>
+	</function>
+	<function>
+		<description>获取基础信息List(param1:CacheBasicType,param2:属性名,params:过滤属性值)</description>
+		<name>basicListParams</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>java.lang.List getBasicListParams(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)</function-signature>
+		<example>${fns:basicListParams('department','name1','a1','name2','a2')}</example>
+	</function>
+	<function>
+		<description>获取基础信息MAP(param1:CacheBasicType)</description>
+		<name>basicMap</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>java.lang.Map getBasicMap(java.lang.String)</function-signature>
+		<example>${fns:basicMap('department')}</example>
+	</function>
+	<function>
+		<description>获取基础对象(param1:CacheBasicType)(param2:id值)</description>
+		<name>basicInfo</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>java.lang.Object getBasicInfo(java.lang.String,java.lang.Long)</function-signature>
+		<example>${fns:basicInfo('position',id)}</example>
+	</function>
+	<function>
+		<description>获取基础对象属性(param1:CacheBasicType)(param2:id值)(param3:属性名)</description>
+		<name>basicInfoFiledValue</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>java.lang.Object getBasicInfoFiledValue(java.lang.String,java.lang.Long,java.lang.String)</function-signature>
+		<example>${fns:basicInfoFiledValue('position',id,filedName)}</example>
+	</function>
+	<!-- 公共基础信息提取 -->
+	<function>
+		<description>获取基础信息List(param1:CacheBasicType)</description>
+		<name>publicBasicList</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>java.lang.List getPublicBasicList(java.lang.String)</function-signature>
+		<example>${fns:publicBasicList('department')}</example>
+	</function>
+	<function>
+		<description>获取基础信息List(param1:CacheBasicType,param2:属性名,params:过滤属性值)</description>
+		<name>publicBasicListParam</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>java.lang.List getPublicBasicListParam(java.lang.String,java.lang.String,java.lang.String)</function-signature>
+		<example>${fns:publicBasicListParam('department','name','a')}</example>
+	</function>
+	<function>
+		<description>获取基础信息MAP(param1:CacheBasicType)</description>
+		<name>publicBasicMap</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>java.lang.Map getPublicBasicMap(java.lang.String)</function-signature>
+		<example>${fns:publicBasicMap('department')}</example>
+	</function>
+	<function>
+		<description>获取基础对象(param1:CacheBasicType)(param2:id值)</description>
+		<name>publicBasicInfo</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>java.lang.Object getPublicBasicInfo(java.lang.String,java.lang.Long)</function-signature>
+		<example>${fns:publicBasicInfo('position',id)}</example>
+	</function>
+	<function>
+		<description>获取基础对象属性(param1:CacheBasicType)(param2:id值)(param3:属性名)</description>
+		<name>publicBasicInfoFiledValue</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>java.lang.Object getBasicInfoFiledValue(java.lang.String,java.lang.Long,java.lang.String)</function-signature>
+		<example>${fns:basicInfoFiledValue('position',id,filedName)}</example>
+	</function>
+
+	<function>
+		<description>得到下一个排序</description>
+		<name>nextSort</name>
+		<function-class>com.huayin.printmanager.common.App</function-class>
+		<function-signature>java.lang.Integer getNextSort(java.lang.String)</function-signature>
+		<example>${fns:nextSort('department')}</example>
+	</function>
+
+	<function>
+		<description>获取当前用户数</description>
+		<name>sessionCount</name>
+		<function-class>com.huayin.printmanager.common.App</function-class>
+		<function-signature>java.lang.Integer sessionCount()</function-signature>
+		<example>${fns:sessionCount()}</example>
+	</function>
+	<function>
+		<description>获取当前所有登录用户信息</description>
+		<name>onlineUsers</name>
+		<function-class>com.huayin.printmanager.common.App</function-class>
+		<function-signature>java.util.Object onlineUsers()</function-signature>
+		<example>${fns:onlineUsers()}</example>
+	</function>
+	<function>
+		<description>URL编码</description>
+		<name>encode</name>
+		<function-class>java.net.URLEncoder</function-class>
+		<function-signature>java.lang.String encode(java.lang.String,java.lang.String)</function-signature>
+		<example>${fns:encode("url", "UTF-8")}</example>
+	</function>
+	<function>
+		<description>获取所有显示的报价类型</description>
+		<name>getOfferTypeList</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>java.lang.List getOfferTypeList()</function-signature>
+		<example>${fns:getOfferTypeList()}</example>
+	</function>
+	<function>
+		<description>获取所有显示的报价设置类型</description>
+		<name>getOfferSettingTypeList</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>java.lang.List getOfferSettingTypeList(java.lang.String)</function-signature>
+		<example>${fns:getOfferSettingTypeList(OfferType)}</example>
+	</function>
+	<function>
+		<description>获取最新通知</description>
+		<name>getLastNotice</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>java.lang.String getLastNotice()</function-signature>
+		<example>${fns:getLastNotice()}</example>
+	</function>
+	<function>
+		<description>获取所有显示的报价类型</description>
+		<name>hasPermission</name>
+		<function-class>com.huayin.printmanager.wx.util.WxUtil</function-class>
+		<function-signature>java.lang.Boolean hasPermission(java.lang.String)</function-signature>
+		<example>${fns:hasPermission()}</example>
+	</function>
+	<!-- 自动报价模块下拉框 -->
+	<function>
+		<description>获取可选的纸张类型</description>
+		<name>getOfferPaperList</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>java.lang.List getOfferPaperList(java.lang.String)</function-signature>
+		<example>${fns:getOfferPaperList('CARTONBOX')}</example>
+	</function>
+	<function>
+		<description>获取可选的坑纸类型</description>
+		<name>getOfferBfluteList</name>
+		<function-class>com.huayin.printmanager.utils.UserUtils</function-class>
+		<function-signature>java.lang.List getOfferBfluteList()</function-signature>
+		<example>${fns:getOfferBfluteList()}</example>
+	</function>
+	<function>
+		<description>去除小数点后的0</description>
+		<name>removeLastZero</name>
+		<function-class>com.huayin.printmanager.utils.StringUtils</function-class>
+		<function-signature>java.lang.String removeLastZero(java.math.BigDecimal)</function-signature>
+		<example>${fns:removeLastZero(29.00)}</example>
+	</function>
+</taglib>

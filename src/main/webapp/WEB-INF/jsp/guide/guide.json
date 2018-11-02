@@ -1,0 +1,253 @@
+{
+
+		"sale":[
+			{
+				"src":"${ctxStatic }/layout/images/guide/sale_order.png",
+				"text":"销售管理 — 销售订单"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/sale_toDeliver.png",
+				"text":"销售管理 — 销售未送货"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/sale_deliver.png",
+				"text":"销售管理 — 销售送货"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/sale_return.png",
+				"text":"销售管理 — 销售退货"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/sale_toReconcil.png",
+				"text":"销售管理 — 销售未对账"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/sale_reconcil.png",
+				"text":"销售管理 — 销售对账"
+			}
+		],
+		"produce":[
+			{
+				"src":"${ctxStatic }/layout/images/guide/produce_01.png",
+				"text":"生产管理  — 包装类工单"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/produce_02.png",
+				"text":"生产管理  — 印刷类工单"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/produce_03.png",
+				"text":"生产管理  — 包装类合版工单"
+			}
+		],
+		"purch":[
+			{
+				"src":"${ctxStatic }/layout/images/guide/purch_to_purch.png",
+				"text":"采购管理  — 工单未采购"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/purch_order.png",
+				"text":"采购管理  — 采购订单"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/purch_to_stock.png",
+				"text":"采购管理  — 采购未入库"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/purch_stock.png",
+				"text":"采购管理  — 采购入库"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/purch_return.png",
+				"text":"采购管理  — 采购退货"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/purch_to_reconcil.png",
+				"text":"采购管理  — 入库未对账"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/purch_reconcil.png",
+				"text":"采购管理  — 采购对账"
+			}
+		],
+		"outsource":[
+			{
+				"src":"${ctxStatic }/layout/images/guide/outsource_to_process_procedure.png",
+				"text":"外发管理  — 工序未发外"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/outsource_to_process_product.png",
+				"text":"外发管理  — 整单未发外"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/outsource_to_process.png",
+				"text":"外发管理  — 发外加工"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/outsource_to_arrive.png",
+				"text":"外发管理  — 发外未到货"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/outsource_arrive.png",
+				"text":"外发管理  — 发外到货"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/outsource_return.png",
+				"text":"外发管理  — 发外退货"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/outsource_to_reconcil.png",
+				"text":"外发管理  — 发外未对账"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/outsource_reconcil.png",
+				"text":"外发管理  — 发外对账"
+			}
+		],
+		"stock_material":[
+			{
+				"src":"${ctxStatic }/layout/images/guide/material_work_to_take.png",
+				"text":"材料库存管理 — 工单转领料"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/material_take.png",
+				"text":"材料库存管理 — 生产领料"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/material_supple.png",
+				"text":"材料库存管理 — 生产补料"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/material_return.png",
+				"text":"材料库存管理 — 生产退料"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/material_otherIn.png",
+				"text":"材料库存管理 — 材料其他入库"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/material_otherOut.png",
+				"text":"材料库存管理 — 材料其他出库"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/material_adjust.png",
+				"text":"材料库存管理 — 材料库存调整"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/material_transfer.png",
+				"text":"材料库存管理 — 材料库存调拨"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/material_inventory.png",
+				"text":"材料库存管理 — 材料库存盘点"
+			}
+		],
+		"stock_product":[
+			{
+				"src":"${ctxStatic }/layout/images/guide/product_work_to_take.png",
+				"text":"成品库存管理 — 工单转入库"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/product_stock.png",
+				"text":"成品库存管理 — 成品入库"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/product_otherIn.png",
+				"text":"成品库存管理 — 成品其他入库"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/product_otherOut.png",
+				"text":"成品库存管理 — 成品其他出库"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/product_adjust.png",
+				"text":"成品库存管理 — 成品库存调整"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/product_transfer.png",
+				"text":"成品库存管理 — 成品库存调拨"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/product_inventory.png",
+				"text":"成品库存管理 — 成品库存盘点"
+			}
+		],
+		"system":[
+			{
+				"src":"${ctxStatic }/layout/images/guide/sys_company.png",
+				"text":"系统管理 — 公司管理"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/sys_addRole.png",
+				"text":"系统管理 — 添加角色"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/sys_addUser.png",
+				"text":"系统管理 — 添加用户"
+			}
+		],
+		"basic":[
+			{
+				"src":"${ctxStatic }/layout/images/guide/basic_addEmployee.png",
+				"text":"添加员工信息"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/basic_addCustomer.png",
+				"text":"添加客户信息"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/basic_addProduct.png",
+				"text":"基础设置 — 添加产品信息"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/basic_addSupplier.png",
+				"text":"基础设置 — 添加供应商信息"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/basic_addMaterial.png",
+				"text":"基础设置 — 添加材料"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/basic_addAccount.png",
+				"text":"基础设置 — 添加账户"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/basic_customer_begin.png",
+				"text":"基础设置 — 客户期初"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/basic_asupplier_begin.png",
+				"text":"基础设置 — 供应商期初"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/basic_product_begin.png",
+				"text":"基础设置 — 产品期初"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/basic_material_begin.png",
+				"text":"基础设置 — 材料期初"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/basic_account_begin.png",
+				"text":"基础设置 — 账号期初"
+			}
+		],
+		"finance":[
+			{
+				"src":"${ctxStatic }/layout/images/guide/finance_pay.png",
+				"text":"财务管理 — 付款单"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/finance_receive.png",
+				"text":"财务管理 — 收款单"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/finance_pay_writeofff.png",
+				"text":"财务管理 — 付款核销单"
+			},
+			{
+				"src":"${ctxStatic }/layout/images/guide/finance_receive_writeoff.png",
+				"text":"财务管理 — 收款核销单"
+			}
+		]	
+	}

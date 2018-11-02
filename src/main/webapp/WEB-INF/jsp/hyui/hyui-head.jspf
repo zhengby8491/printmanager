@@ -1,0 +1,43 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<head>
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="keywords" content="印管家,印刷,印刷行业系统,后台管理,企业后台管理系统,ERP">
+<meta name="description" content="印管家,印刷,印刷行业系统,后台管理,企业后台管理系统,ERP">
+<title>印管家云平台</title>
+<link rel="shortcut icon" href="${ctxHYUI }/images/favicon.icon" type="image/x-icon">
+<c:if test="${mode == 'dev' }">
+	<link rel="stylesheet" type="text/css" href="${ctxHYUI}/css/hyui.css?v=${v }" />
+	<link rel="stylesheet" type="text/css" href="${ctxHYUI}/plugins/jquery.select2/css/select2.css?v=${v }" />
+	<link rel="stylesheet" type="text/css" href="${ctxHYUI}/plugins/laypage/1.3/skin/laypage.css?v=${v }" />
+	<link rel="stylesheet" type="text/css" href="${ctxHYUI}/plugins/layer/skin/default/layer.css?v=${v }" />
+	<link rel="stylesheet" type="text/css" href="${ctxHYUI}/plugins/bootstrap-table/bootstrap.min.css?v=${v }" />
+	<link rel="stylesheet" type="text/css" href="${ctxHYUI}/plugins/bootstrap-table/bootstrap-table.min.css?v=${v }" />
+	<link rel="stylesheet" type="text/css" href="${ctxHYUI}/plugins/jquery.powerFloat/css/powerFloat.css?v=${v }" />
+	<link rel="stylesheet" type="text/css" href="${ctxHYUI}/src/animate.css?v=${v }" />
+	<link rel="stylesheet" type="text/css" href="${ctxHYUI}/src/common.css?v=${v }" />
+</c:if>
+<c:if test="${mode == 'pro' }">
+	<link rel="stylesheet" type="text/css" href="${ctxHYUI}/css/hyui.common.css?v=${v }" />
+</c:if>
+<link rel="stylesheet" type="text/css" href="${ctxHYUI}/font-awesome/css/font-awesome.css?v=${v }" />
+<!-- 皮肤样式  -->
+<link id="frameskin" rel="stylesheet" type="text/css" href="" />
+<style type="text/css">
+@font-face {
+	font-family: 'Glyphicons Halflings';
+	src: url(${ctxHYUI}/plugins/fonts/glyphicons-halflings-regular.eot);
+	src: url(${ctxHYUI}/plugins/fonts/glyphicons-halflings-regular.eot?#iefix) format('embedded-opentype'), url(${ctxHYUI}/plugins/fonts/glyphicons-halflings-regular.woff) format('woff'), url(${ctxHYUI}/plugins/fonts/glyphicons-halflings-regular.ttf) format('truetype'), url(${ctxHYUI}/plugins/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format('svg')
+}
+
+.glyphicon {
+	font-family: 'Glyphicons Halflings' !important;
+}
+
+.container {
+	padding-right: 0
+}
+</style>

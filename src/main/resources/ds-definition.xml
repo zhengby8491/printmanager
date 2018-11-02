@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd ">
+
+	<!-- 加载配置属性文件 -->
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:printmanager.properties" />
+
+	<!-- 数据库垂直/水平分区路由数据源配置 -->
+	<bean id="partitionDataSource" class="com.huayin.common.persist.PartitionRoutingDataSource" lazy-init="true">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry key="PRODUCT" value-ref="masterDataSource" />
+				<entry key="SLAVE" value-ref="slaveDataSource" />
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="masterDataSource" />
+	</bean>
+	<!-- 故障自动转移路由数据源配置 -->
+	<bean id="slaveDataSource" class="com.huayin.common.persist.BalanceDataSource" lazy-init="true">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry key="slave1" value-ref="slave1DataSource" />
+				<entry key="slave2" value-ref="slave2DataSource" />
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="slave1DataSource" />
+	</bean>
+	<!-- 主数据库定义，主数据库是用来处理业务的，即插入更新的库 -->
+	<bean id="masterDataSource" parent="mysql" lazy-init="true" />
+	<!-- 从数据库定义，从数据库是用来分担主数据库查询方面压力的，可以配置多个从数据库进行容灾处理 -->
+	<bean id="slave1DataSource" parent="mysql" lazy-init="true" />
+	<bean id="slave2DataSource" parent="mysql" lazy-init="true" />
+
+	<!-- 以下是各数据库简单的示例 -->
+	<!-- 简单的MySQL JDBC数据库连接数据源，具体到某种数据库类型定义 -->
+	<bean id="mysql" parent="commondbcp" lazy-init="true">
+		<!-- 数据源驱动类可不写，Druid默认会自动根据URL识别DriverClass -->
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<!-- 基本属性 url、user、password -->
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	<!-- 简单的Oracle JDBC数据库连接数据源，具体到某种数据库类型定义 -->
+	<!-- <bean id="oracle" parent="commondbcp" lazy-init="true"> <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" /> <property name="url" value="jdbc:oracle:thin:@192.168.0.182:1521:framework" /> <property name="username" value="framework" /> <property name="password" value="hpsystem" /> <property name="validationQuery" value="select 1 from dual" /> </bean> -->
+	<!-- 简单的SQL Server JDBC数据库连接数据源，具体到某种数据库类型定义 -->
+	<!-- <bean id="sqlserver" parent="commondbcp" lazy-init="true"> <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" /> <property name="url" value="jdbc:sqlserver://192.168.0.175:1433;databaseName=Framework;selectMethod=cursor" /> <property name="username" value="framework" /> <property name="password" value="hpsystem" /> <property name="validationQuery" value="select 1" /> </bean> -->
+	<!-- 简单的HsqlDB JDBC数据库连接数据源，具体到某种数据库类型定义 -->
+	<!-- <bean id="hsqldb" parent="commondbcp" lazy-init="true"> <property name="driverClassName" value="org.hsqldb.jdbcDriver" /> <property name="url" value="jdbc:hsqldb:db/framework;shutdown=true" /> <property name="validationQuery" value="SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS" /> </bean> -->
+
+	<!-- 通用的数据连接池配置 -->
+	<bean id="commondbcp" class="com.alibaba.druid.pool.DruidDataSource" lazy-init="true" destroy-method="close">
+
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="${jdbc.pool.init}" />
+		<property name="minIdle" value="${jdbc.pool.minIdle}" />
+		<property name="maxActive" value="${jdbc.pool.maxActive}" />
+
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="60000" />
+
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+
+		<property name="validationQuery" value="${jdbc.test.sql}" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小（Oracle使用） <property name="poolPreparedStatements" value="true" /> <property name="maxPoolPreparedStatementPerConnectionSize" value="20" /> -->
+
+		<!-- 配置监控统计拦截的filters -->
+		<property name="filters" value="stat" />
+
+	</bean>
+</beans>
